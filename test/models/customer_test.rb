@@ -26,27 +26,4 @@ describe Customer do
       expect(new_cust.errors.messages).must_include :name
     end
   end
-
-  describe "relations" do
-    it "can add a customer/movie relationship" do
-      customer = customers(:myriam)
-      movie = movies(:lucky)
-
-      customer.movies << movie
-
-      expect(customer.movies).must_include movie
-      expect(movie.customers).must_include customer
-    end
-
-    # it "bad test" do
-    #   customer = customers(:myriam)
-    #   movie = Movie.new(title: "new", inventory: 1)
-
-    #   customer.movies << movie
-    #   # customer.save
-
-    #   expect(customer.movies).wont_include movie
-    #   # expect(customer.movies.errors.messages).must_include :title
-    # end
-  end
 end
