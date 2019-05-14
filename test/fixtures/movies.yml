@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  overview: MyString
+lucky:
+  title: Lucky Number Sleven
+  overview: Great movie
   release_date: 2019-05-14
-  inventory: 1
+  inventory: 5
 
-two:
-  title: MyString
-  overview: MyString
+lion_king:
+  title: The Lion King
+  overview: Everything the light touches shall be yours.
   release_date: 2019-05-14
-  inventory: 1
+  inventory: 10
