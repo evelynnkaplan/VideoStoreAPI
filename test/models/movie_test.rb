@@ -21,6 +21,8 @@ describe Movie do
     expect {
       new_movie.save
     }.wont_change "Movie.count"
+
+    expect(new_movie.errors.messages).must_include :title
   end
 
   it "won't save without an inventory" do
@@ -29,5 +31,7 @@ describe Movie do
     expect {
       new_movie.save
     }.wont_change "Movie.count"
+
+    expect(new_movie.errors.messages).must_include :inventory
   end
 end
