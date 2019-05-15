@@ -97,5 +97,20 @@ describe MoviesController do
       expect(movie.title).must_equal movie_data[:title]
       must_respond_with :success
     end
+
+    it "returns an error for invalid data" do
+      movie_data["title"] = nil
+
+      expect {
+        post movies_path, params: {movie: movie_data}
+      }.wont_change "Movie.count"
+
+      body = JSON.parse(response.body)
+
+      expect(body).must_be_kind_of Hash
+      expect(body.keys).must_include "errors"
+      expect(body["errors"]).must_include "title"
+      must_respond_with :bad_request
+    end
   end
 end
