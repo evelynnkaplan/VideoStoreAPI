@@ -1,0 +1,3 @@
+class CustomerMoviesController < ApplicationController
+
+end
