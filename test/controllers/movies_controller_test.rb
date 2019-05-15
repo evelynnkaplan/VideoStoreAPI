@@ -72,4 +72,30 @@ describe MoviesController do
       body.keys.sort.must_equal keys
     end
   end
+
+  describe "create" do
+    let (:movie_data) {
+      {
+        title: "Lucky Number Sleven",
+        overview: "Starts and ends at a bus stop",
+        release_date: 2019-05-14,
+        inventory: 1,
+      }
+    }
+
+    it "creates a new movie given valid data" do
+      expect {
+        post movies_path, params: {movie: movie_data}
+      }.must_change "Movie.count", 1
+
+      body = JSON.parse(response.body)
+      expect(body).must_be_kind_of Hash
+      expect(body).must_include "id"
+
+      movie = Movie.find(body["id"].to_i)
+
+      expect(movie.title).must_equal movie_data[:title]
+      must_respond_with :success
+    end
+  end
 end
