@@ -78,7 +78,7 @@ describe MoviesController do
       {
         title: "Lucky Number Sleven",
         overview: "Starts and ends at a bus stop",
-        release_date: 2019-05-14,
+        release_date: "2019-05-14",
         inventory: 1,
       }
     }
