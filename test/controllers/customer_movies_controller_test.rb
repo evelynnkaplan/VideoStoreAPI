@@ -16,16 +16,17 @@ describe CustomerMoviesController do
       movie = movies(:lion_king)
       movie_inventory = movie.inventory
       checkout_data = {
-        customer: customer,
-        movie: movie,
+        customer_id: customer.id,
+        movie_id: movie.id,
       }
-      expect { post checkout_path, params: {checkout: checkout_data} }.must_change "CustomerMovie.count", 1
+      expect { post checkout_path, params: {customer_movie: checkout_data} }.must_change "CustomerMovie.count", 1
       expect(movie.inventory).must_equal movie_inventory - 1
       expect(CustomerMovie.last.checkout_date).must_equal Date.today
       expect(CustomerMovie.last.due_date).must_equal Date.today.next_week
     end
 
     it "returns an error for invalid data" do
+      customer = customers(:evelynn)
       checkout_data = {
         customer: customer,
       }
