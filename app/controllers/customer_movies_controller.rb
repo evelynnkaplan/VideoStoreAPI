@@ -17,6 +17,22 @@ class CustomerMoviesController < ApplicationController
     end
   end
 
+  def checkin
+    customer_movie = CustomerMovie.where(customer_id: customer_movie_params[:customer_id], movie_id: customer_movie_params[:movie_id])
+
+    if customer_movie != []
+      customer_movie.movie.inventory += 1
+      customer_movie.movie.status = "returned"
+      customer_movie.movie.save
+
+      render json: {movie: customer_movie.movie.title, checkin_status: customer_movie.status},
+             status: :ok
+    else
+      render json: {ok: false, errors: customer_movie.errors.messages},
+             status: :bad_request
+    end
+  end
+
   private
 
   def customer_movie_params
