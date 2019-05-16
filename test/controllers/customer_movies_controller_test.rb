@@ -13,14 +13,18 @@ describe CustomerMoviesController do
       # calculates due date to 7 days from today - model method
 
       customer = customers(:evelynn)
-      movie = movies(:lion_king)
+      movie = Movie.create(title: "Wow", overview: "Amazing!", release_date: "2019-05-14", inventory: 5)
       movie_inventory = movie.inventory
       checkout_data = {
         customer_id: customer.id,
         movie_id: movie.id,
       }
+
       expect { post checkout_path, params: {customer_movie: checkout_data} }.must_change "CustomerMovie.count", 1
-      expect(movie.inventory).must_equal movie_inventory - 1
+
+      after_checkout = Movie.find_by(id: CustomerMovie.last.movie.id)
+
+      expect(after_checkout.inventory).must_equal movie_inventory - 1
       expect(CustomerMovie.last.checkout_date).must_equal Date.today
       expect(CustomerMovie.last.due_date).must_equal Date.today.next_week
     end
@@ -30,7 +34,10 @@ describe CustomerMoviesController do
       checkout_data = {
         customer: customer,
       }
-      expect { post checkout_path, params: {checkout: checkout_data} }.wont_change "CustomerMovie.count"
+
+      expect { post checkout_path, params: {customer_movie: checkout_data} }.wont_change "CustomerMovie.count"
+
+      body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body.keys).must_include "errors"
       expect(body["errors"]).must_include "movie"
