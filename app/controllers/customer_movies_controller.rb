@@ -19,16 +19,15 @@ class CustomerMoviesController < ApplicationController
 
   def checkin
     customer_movie = CustomerMovie.where(customer_id: customer_movie_params[:customer_id], movie_id: customer_movie_params[:movie_id])
-
     if customer_movie != []
-      customer_movie.movie.inventory += 1
-      customer_movie.movie.status = "returned"
-      customer_movie.movie.save
+      customer_movie[0].movie.inventory += 1 # look for the movie id in the array
+      customer_movie[0].movie.status = "returned"
+      customer_movie[0].movie.save
 
-      render json: {movie: customer_movie.movie.title, checkin_status: customer_movie.status},
+      render json: {movie: customer_movie[0].movie.title, checkin_status: customer_movie[0].status},
              status: :ok
     else
-      render json: {ok: false, errors: customer_movie.errors.messages},
+      render json: {ok: false, errors: ["Customer has not checked out this movie"]},
              status: :bad_request
     end
   end

@@ -45,7 +45,6 @@ describe CustomerMoviesController do
         customer_id: customer.id,
         movie_id: movie.id,
       }
-
       post checkout_path, params: {customer_movie: checkout_data}
 
       after_checkout = Movie.find_by(id: CustomerMovie.last.movie.id)
@@ -74,7 +73,7 @@ describe CustomerMoviesController do
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body.keys).must_include "errors"
-      expect(body["errors"]).must_include "movie"
+      expect(body["errors"]).must_include "Customer has not checked out this movie"
       must_respond_with :bad_request
     end
   end
