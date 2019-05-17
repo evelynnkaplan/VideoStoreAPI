@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_224719) do
+ActiveRecord::Schema.define(version: 2019_05_17_210425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2019_05_14_224719) do
     t.bigint "movie_id"
     t.date "checkout_date"
     t.date "due_date"
+    t.string "status"
     t.index ["customer_id"], name: "index_customer_movies_on_customer_id"
     t.index ["movie_id"], name: "index_customer_movies_on_movie_id"
   end

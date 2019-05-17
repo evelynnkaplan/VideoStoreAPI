@@ -21,8 +21,9 @@ class CustomerMoviesController < ApplicationController
     customer_movie = CustomerMovie.where(customer_id: customer_movie_params[:customer_id], movie_id: customer_movie_params[:movie_id])
     if customer_movie != []
       customer_movie[0].movie.inventory += 1 # look for the movie id in the array
-      customer_movie[0].movie.status = "returned"
+      customer_movie[0].status = "returned"
       customer_movie[0].movie.save
+      customer_movie[0].save
 
       render json: {movie: customer_movie[0].movie.title, checkin_status: customer_movie[0].status},
              status: :ok
