@@ -31,7 +31,7 @@ describe CustomerMoviesController do
       body = JSON.parse(response.body)
       expect(body).must_be_kind_of Hash
       expect(body.keys).must_include "errors"
-      expect(body["errors"]).must_include "movie"
+      expect(body["errors"]).must_include "Couldn't rent the movie"
       must_respond_with :bad_request
     end
   end
