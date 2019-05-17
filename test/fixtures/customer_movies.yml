@@ -13,3 +13,10 @@ two:
   customer_id: 4
   movie_id: 1234
 # column: value
+three: 
+  customer_id: myriam.id
+  movie_id: lucky.id
+
+four: 
+  customer_id: evelynn.id
+  movie_id: lion_king.id
